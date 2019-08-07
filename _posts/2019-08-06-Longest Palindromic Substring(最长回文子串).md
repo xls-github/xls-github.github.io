@@ -130,7 +130,7 @@ tag: 算法
      * @param s
      * @return
      */
-    public static String longestPalindrome(String s) {
+    public String longestPalindrome(String s) {
         if (s.isEmpty()||s.length()==0){
             return "";
         }
@@ -138,7 +138,7 @@ tag: 算法
         if (len==1){
             return s;
         }
-        String result="";
+        String result=s.substring(0,1);
         boolean[][] dp=new boolean[len][len];//表示i到j之间的字符串是否回文
         for (int i=0;i<len;i++){
             dp[i][i]=true;
@@ -154,7 +154,7 @@ tag: 算法
                 int i=k+j-1;
                 if (s.charAt(k)==s.charAt(i)&&dp[k+1][i-1]){
                     dp[k][i]=true;
-                    if (i-k>result.length()){
+                    if (i-k+1>result.length()){
                         result=s.substring(k,i+1);
                     }
                 }else {
