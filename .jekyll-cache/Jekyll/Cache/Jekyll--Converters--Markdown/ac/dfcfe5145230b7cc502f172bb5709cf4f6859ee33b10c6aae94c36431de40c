@@ -1,0 +1,121 @@
+I"�<p>MongoDB是一个NoSQL的文档型的数据库，数据库中存储的数据的基本单位就是文档，在MongoDB数据库使用的是JavaScript进行操作的，在MongoDB含有一个对ES标准实现的引擎，在MongoDB中所有ES中的语法中都可以使用。</p>
+<ul>
+  <li>MongoDB的基本的指令
+    <ul>
+      <li>启动服务器
+  mongod</li>
+      <li>启动客户端
+  mongo</li>
+    </ul>
+  </li>
+  <li>MongoDB的CRUD（增删改查）的操作
+    <ul>
+      <li>基本操作
+  use 数据库
+      - 进入指定的数据库
+  show dbs
+      - 显示所有的数据库
+  show collections
+      - 显示数据库中所有的集合
+  db
+      - 显示当前所在的数据库</li>
+      <li>向数据库中插入文档（collection表示当前要操作的集合(感觉相当于SqlServer里的表)）
+        <ul>
+          <li>db.collection.insert()
+            <ul>
+              <li>可以向集合中插入一个或多个文档（有参数可以选择）</li>
+              <li>当我们向集合中插入文档时，数据库会自动为文档添加_id作为文档的唯一标识</li>
+              <li>_id可以自己指定，必须确保它的唯一性</li>
+            </ul>
+          </li>
+          <li>db.collection.insertOne()
+            <ul>
+              <li>向集合中插入一个文档</li>
+            </ul>
+          </li>
+          <li>db.collection.insertMany()
+            <ul>
+              <li>向集合中插入多个文档</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>查询数据库中的文档
+        <ul>
+          <li>db.collection.find()
+            <ul>
+              <li>可以根据指定条件从集合中查询所有符合条件的文档，返回的是list</li>
+              <li>find()可以接收一个对象作为条件参数 
+  {属性:值} 查询属性是指定值的文档</li>
+            </ul>
+          </li>
+          <li>db.collection.findOne()
+            <ul>
+              <li>查询第一个符合条件的文档，返回的是对象</li>
+            </ul>
+          </li>
+          <li>db.collection.find().count()
+            <ul>
+              <li>查询符合条件的文档的数量</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>修改数据库中的文档
+        <ul>
+          <li>db.collection.update()
+            <ul>
+              <li>可以修改、替换集合中的一个或多个文档（同insert()一样，可以选参数，默认修改一个）</li>
+              <li>update()默认情况下会使用新对象来替换旧的对象</li>
+              <li>如果需要修改指定的属性，而不是替换需要使用“修改操作符”来完成修改
+  $set 修改文档中的指定属性
+  $unset 删除文档的指定属性</li>
+            </ul>
+          </li>
+          <li>db.collection.updateOne()
+            <ul>
+              <li>修改集合中的一个文档</li>
+            </ul>
+          </li>
+          <li>db.collection.updateMany()
+            <ul>
+              <li>修改集合中的多个文档</li>
+            </ul>
+          </li>
+          <li>db.collection.replaceOne()
+            <ul>
+              <li>替换集合中的一个文档</li>
+              <li>删除集合中的文档(一般开发中不会删除东西，不常用，一般会在数据中添加一个字段，来表示数据是否被删除)</li>
+            </ul>
+          </li>
+          <li>db.collection.remove()
+            <ul>
+              <li>删除集合中的一个或多个文档（默认删除多个）</li>
+            </ul>
+          </li>
+          <li>db.collection.deleteOne()
+            <ul>
+              <li>删除集合中的一个文档</li>
+            </ul>
+          </li>
+          <li>db.collection.deleteMany()
+            <ul>
+              <li>删除集合中的多个文档</li>
+            </ul>
+          </li>
+          <li>清空一个集合
+  db.collection.remove({})</li>
+          <li>删除一个集合
+  db.collection.drop()</li>
+          <li>删除一个数据库
+  db.dropDatabase()
+ 文档之间的关系
+  一对一（one to one）可以通过内嵌文档的形式来体现出一对一的关系
+  一对多（one to many）/多对一(many to one)
+  多对多(many to many)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+:ET

@@ -1,0 +1,57 @@
+I"n<p><strong>题目：</strong>输入两个链表，找出它们的第一个公共结点。</p>
+
+<p><strong>解法一：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 	<span class="c1">//计算两个链表的长度，长的链表先走比短的链表多的几步，然后两个链表再同时移动，直至节点相等或者为空</span>
+	<span class="kd">public</span> <span class="nc">ListNode</span> <span class="nf">findFirstCommonNode</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">pHead1</span><span class="o">,</span> <span class="nc">ListNode</span> <span class="n">pHead2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">countOne</span> <span class="o">=</span> <span class="n">getLinkNodeLength</span><span class="o">(</span><span class="n">pHead1</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">countTwo</span> <span class="o">=</span> <span class="n">getLinkNodeLength</span><span class="o">(</span><span class="n">pHead2</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">fontStep</span><span class="o">=</span><span class="n">countOne</span><span class="o">-</span><span class="n">countTwo</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">fontStep</span><span class="o">&gt;=</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">fontStep</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">pHead1</span> <span class="o">=</span> <span class="n">pHead1</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">fontStep</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">pHead2</span> <span class="o">=</span> <span class="n">pHead2</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">pHead1</span> <span class="o">!=</span> <span class="n">pHead2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">pHead1</span> <span class="o">=</span> <span class="n">pHead1</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">pHead2</span> <span class="o">=</span> <span class="n">pHead2</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">pHead1</span><span class="o">;</span>
+    <span class="o">}</span>
+	<span class="c1">//计算链表的长度</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">getLinkNodeLength</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">linkNodeLen</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">node</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">linkNodeLen</span><span class="o">++;</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">linkNodeLen</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>解法二：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cm">/**
+     * 假如用a+c表示链表A,b+c表示链表B，即c为两个链表的公共部分，因为a+c+b必然与b+c+a相
+     * 等，将当访问链表 A 的指针访问到链表尾部时，令它从链表 B 的头部重新开始访问链表 B；
+     * 同样地，当访问链表 B 的指针访问到链表尾部时，令它从链表 A 的头部重新开始访问链表
+     * A。这样就能控制访问 A 和 B 两个链表的指针能同时访问到交点。
+     * @param pHead1 
+     * @param pHead2
+     * @return 
+     */</span>
+	<span class="kd">public</span> <span class="nc">ListNode</span> <span class="nf">findFirstCommonNode</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">pHead1</span><span class="o">,</span> <span class="nc">ListNode</span> <span class="n">pHead2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ListNode</span> <span class="n">l1</span> <span class="o">=</span> <span class="n">pHead1</span><span class="o">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">pHead2</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">l1</span> <span class="o">!=</span> <span class="n">l2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="o">(</span><span class="n">l1</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">pHead2</span> <span class="o">:</span> <span class="n">l1</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">l2</span> <span class="o">=</span> <span class="o">(</span><span class="n">l2</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">pHead1</span> <span class="o">:</span> <span class="n">l2</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">l1</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,37 @@
+I"�<p><strong>题目：</strong></p>
+
+<p>定义栈的数据结构，请在该类型中实现一个能够得到栈最小元素的min函数。在该栈中调用push、pop、top、min的时间复杂度都是o(1)。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>借助一个辅助栈存储最小值，这样就能在<code class="highlighter-rouge">O(1)</code>时间内取得最小值。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MinStack</span> <span class="o">{</span>
+    <span class="nc">Stack</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">mainStack</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Stack</span><span class="o">&lt;&gt;();</span>
+    <span class="nc">Stack</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">minStack</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Stack</span><span class="o">&lt;&gt;();</span><span class="c1">//存储最小值</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="kt">int</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mainStack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">minStack</span><span class="o">.</span><span class="na">empty</span><span class="o">()</span> <span class="o">||</span> <span class="n">node</span> <span class="o">&lt;</span> <span class="n">minStack</span><span class="o">.</span><span class="na">peek</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">minStack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">minStack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">minStack</span><span class="o">.</span><span class="na">peek</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">minStack</span><span class="o">.</span><span class="na">empty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">mainStack</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">mainStack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+            <span class="n">minStack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">min</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">minStack</span><span class="o">.</span><span class="na">empty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">mainStack</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">minStack</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+:ET

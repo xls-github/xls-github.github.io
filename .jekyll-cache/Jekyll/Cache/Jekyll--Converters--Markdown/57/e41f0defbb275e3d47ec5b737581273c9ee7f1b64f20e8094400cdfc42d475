@@ -1,0 +1,48 @@
+I"�<p><strong>题目一：</strong> 一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">findNumsAppearOnce</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">array</span><span class="o">,</span><span class="kt">int</span> <span class="n">num1</span><span class="o">[]</span> <span class="o">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="o">[])</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="o">^</span><span class="n">i</span><span class="o">;</span><span class="c1">//相同的数字异或为0，所有数字异或的结果即为两个不同数字的异或</span>
+        <span class="o">}</span>
+        <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="o">&amp;(-</span><span class="n">count</span><span class="o">);</span><span class="c1">//一个数与自己的相反数相与，得到从右到左第一个为1的位，即0110&amp;(-0110)=0010</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">:</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span><span class="c1">//利用这一位将这两个不同的数分到两堆中,则每堆只有一个出现一次的数字，异或即可得到</span>
+            <span class="k">if</span> <span class="o">((</span><span class="n">count</span><span class="o">&amp;</span><span class="n">j</span><span class="o">)==</span><span class="mi">0</span><span class="o">){</span><span class="c1">//说明j在这一位上为0</span>
+                <span class="n">num1</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">num1</span><span class="o">[</span><span class="mi">0</span><span class="o">]^</span><span class="n">j</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">num2</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">num2</span><span class="o">[</span><span class="mi">0</span><span class="o">]^</span><span class="n">j</span><span class="o">;</span><span class="c1">//说明j在这一位上为0</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>题目二：</strong> 在一个数组中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//先将每个数字二进制表示中，对应的位的数字加起来，然后每位都与3取余，若不为0，则只出现一次数字该位也不为0</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">findNumAppearOnce</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span><span class="kt">int</span> <span class="n">length</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">length</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">res</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">32</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">31</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span><span class="mi">0</span> <span class="o">;</span> <span class="n">j</span><span class="o">--)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">((</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]&amp;</span><span class="mi">1</span><span class="o">)==</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">res</span><span class="o">[</span><span class="n">j</span><span class="o">]=</span><span class="n">res</span><span class="o">[</span><span class="n">j</span><span class="o">]+</span><span class="mi">1</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]&gt;&gt;</span><span class="mi">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">num</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="mi">32</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="o">;</span>
+            <span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="o">+</span><span class="n">res</span><span class="o">[</span><span class="n">i</span><span class="o">]%</span><span class="mi">3</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">num</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

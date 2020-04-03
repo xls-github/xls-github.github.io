@@ -1,0 +1,29 @@
+I"\<p><strong>题目：</strong></p>
+
+<p>输入一个整型数组，数组里有正数也有负数。数组中一个或连续的多个整数组成一个子数组。求所有子数组的和的最大值。要求时间复杂度为<code class="highlighter-rouge">O(n)</code>。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>使用动态规划，dp[i]为以i为尾的连续子数组的最大和，dp[i]=Math.max(dp[i-1]+array[i],array[i])。如果dp[i-1]+array[i]&gt;array[i]说明i前面的子数组最大和大于0，加上后值变大，若小于，说明前面的和小于0，舍弃。</p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code class="language-JAVA">	private static int NumOfSum(int[] array){
+        if (array==null||array.length==0){
+            return 0;
+        }
+        int len=array.length;
+        int[] dp=new int[len];
+        dp[0]=array[0];
+        int max=dp[0];//记录最大值
+        for (int i = 1; i &lt;len ; i++) {
+            dp[i]=Math.max(dp[i-1]+array[i],array[i]);
+            if (dp[i]&gt;max){
+                max=dp[i];
+            }
+        }
+        return max;
+    }
+</code></pre>
+
+:ET

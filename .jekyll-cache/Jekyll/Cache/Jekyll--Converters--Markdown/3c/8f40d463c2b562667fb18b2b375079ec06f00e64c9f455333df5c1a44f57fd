@@ -1,0 +1,25 @@
+I"<p><strong>题目：</strong></p>
+
+<p>求1+2+3+…+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。</p>
+
+<p><strong>思路：</strong></p>
+
+<ul>
+  <li>
+    <p>题目要求不能使用for,if等条件判断语句，所以要用别的方式达到条件判断的效果，想到条件与&amp;&amp;有短路效果，可以用它作为判断终止条件。</p>
+  </li>
+  <li>
+    <p>例如：(n&gt;0)&amp;&amp;(条件)，当n&gt;0时，执行后面条件，n等于0时，就不判断后面的程序。</p>
+  </li>
+</ul>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum_Solution</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">sum</span><span class="o">=</span><span class="n">n</span><span class="o">;</span>
+        <span class="kt">boolean</span> <span class="n">flag</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">((</span><span class="n">sum</span> <span class="o">+=</span> <span class="n">sum_Solution</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

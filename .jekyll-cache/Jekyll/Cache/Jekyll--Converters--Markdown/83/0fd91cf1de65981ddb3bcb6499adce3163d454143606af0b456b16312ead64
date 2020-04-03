@@ -1,0 +1,29 @@
+I"�<p><strong>题目：</strong></p>
+
+<p>输入两个递增序列链表，合并这两个链表并使新链表中的结点仍然是递增排序的。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>从头开始比较两个递增的链表，较小的节点比如list1先进入新链表，然后list1.next与list2继续比较，直至两个链表合并完成。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">ListNode</span> <span class="nf">merge</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">list1</span><span class="o">,</span><span class="nc">ListNode</span> <span class="n">list2</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">list1</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">list2</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">list2</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">list1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">ListNode</span> <span class="n">newNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">list1</span><span class="o">.</span><span class="na">val</span><span class="o">&lt;</span><span class="n">list2</span><span class="o">.</span><span class="na">val</span><span class="o">){</span>
+            <span class="n">newNode</span> <span class="o">=</span> <span class="n">list1</span><span class="o">;</span><span class="c1">//值小的节点先进新链表</span>
+            <span class="n">newNode</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="n">merge</span><span class="o">(</span><span class="n">list1</span><span class="o">.</span><span class="na">next</span><span class="o">,</span><span class="n">list2</span><span class="o">);</span>
+        <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+            <span class="n">newNode</span> <span class="o">=</span> <span class="n">list2</span><span class="o">;</span>
+            <span class="n">newNode</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="n">merge</span><span class="o">(</span><span class="n">list1</span><span class="o">,</span><span class="n">list2</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">newNode</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

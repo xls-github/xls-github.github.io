@@ -1,0 +1,114 @@
+I"�-<p><strong>题目一：</strong> 统计一个数字在排序数组中出现的次数。</p>
+
+<p><strong>示例：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">Input:</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">6</span>
+    <span class="no">K</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="nl">Output:</span>
+	<span class="mi">4</span>
+</code></pre></div></div>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNumberOfK</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">array</span> <span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">==</span><span class="mi">0</span><span class="o">||</span><span class="n">array</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">result</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">boolean</span> <span class="n">flag</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span><span class="c1">//标识是否找到数字</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span><span class="o">!=</span><span class="n">k</span><span class="o">&amp;&amp;</span><span class="n">flag</span><span class="o">){</span><span class="c1">//找到数字且已遍历完找到的数字，跳出循环，减少遍历次数</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span><span class="o">!=</span><span class="n">k</span><span class="o">){</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(!</span><span class="n">flag</span><span class="o">){</span>
+                    <span class="n">flag</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">result</span><span class="o">++;</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>题目二：</strong> 一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围为0～n-1之内。在范围0~n-1内的这n个数字中有且只有一个数字不在该数组中，请找出这个数字。</p>
+
+<p><strong>解法一：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cm">/**
+     * arraySum记录数组的和，
+     * numSum记录0到n-1的和，
+     * 两个差即为缺失的数字，
+     * 但是没有利用题上数组
+     * 有序这个条件
+     * @param sortedArray 数组
+     * @param length 数组的长度
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">lostNum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">sortedArray</span><span class="o">,</span><span class="kt">int</span> <span class="n">length</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">arraySum</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">numSum</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">sortedArray</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">arraySum</span><span class="o">+=</span><span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">length</span> <span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">numSum</span><span class="o">+=</span><span class="n">j</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">numSum</span> <span class="o">-</span> <span class="n">arraySum</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>解法二：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cm">/**
+     * 如果从开始到当前位置不缺失数字，
+     * 则当前的数组值与其下标值相等，
+     * 说明缺失的值在当前值的后面，
+     * 若数组值比当前下标值大，
+     * 说明缺失的值在当前值之前，
+     * 用二分法找到缺失的值
+     * @param sortedArray
+     * @param length
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">lostNum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">sortedArray</span><span class="o">,</span><span class="kt">int</span> <span class="n">length</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span><span class="n">end</span><span class="o">=</span><span class="n">length</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">start</span><span class="o">&lt;</span><span class="n">end</span><span class="o">){</span>
+            <span class="kt">int</span> <span class="n">mid</span><span class="o">=(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">sortedArray</span><span class="o">[</span><span class="n">mid</span><span class="o">]&gt;</span><span class="n">mid</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">end</span><span class="o">=</span><span class="n">mid</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">sortedArray</span><span class="o">[</span><span class="n">mid</span><span class="o">]==</span><span class="n">mid</span><span class="o">){</span>
+                <span class="n">start</span><span class="o">=</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">start</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>题目三：</strong> 假设一个单调递增的数组里的每个元素都是整数并且是唯一的。请编程实现一个函数，找出数组中任意一个数值等于其下标的元素。例如，在数组{-3,-1,1,3,5}中，数字3和它的下标相等。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//与题目二第二种解法类似，同样是二分法，由于数组单调递增，所以，当数组值大于其下标值，说明当前数组值</span>
+<span class="c1">//值之后的数组肯定大于其下标值，则若存在下标值与数组值相等的情况必在当前数组值之前，反之亦然。</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">findNum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">sortedArray</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">end</span><span class="o">=</span><span class="n">sortedArray</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">start</span><span class="o">&lt;</span><span class="n">end</span><span class="o">){</span>
+            <span class="kt">int</span> <span class="n">mid</span><span class="o">=(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">sortedArray</span><span class="o">[</span><span class="n">mid</span><span class="o">]&gt;</span><span class="n">mid</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">end</span><span class="o">=</span><span class="n">mid</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">sortedArray</span><span class="o">[</span><span class="n">mid</span><span class="o">]&lt;</span><span class="n">mid</span><span class="o">){</span>
+                <span class="n">start</span><span class="o">=</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">mid</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span><span class="c1">//不存在相等返回-1</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,31 @@
+I"<p><strong>题目：</strong> 给定一棵二叉搜索树，请找出其中的第k小的结点。</p>
+
+<p><strong>示例：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">例如</span><span class="err">，（</span><span class="mi">5</span><span class="err">，</span><span class="mi">3</span><span class="err">，</span><span class="mi">7</span><span class="err">，</span><span class="mi">2</span><span class="err">，</span><span class="mi">4</span><span class="err">，</span><span class="mi">6</span><span class="err">，</span><span class="mi">8</span><span class="err">）</span><span class="n">中</span><span class="err">，</span><span class="n">按结点数值大小顺序第三小结点的值为4</span><span class="err">。</span>
+</code></pre></div></div>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="c1">//中序遍历找到第k小的节点</span>
+	<span class="kd">private</span>  <span class="nc">TreeNode</span> <span class="n">lastNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span>  <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="err">；</span>
+    <span class="nc">TreeNode</span> <span class="nf">KthNode</span><span class="o">(</span><span class="nc">TreeNode</span> <span class="n">pRoot</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">treeInOrder</span><span class="o">(</span><span class="n">pRoot</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">lastNode</span><span class="o">;</span>
+    <span class="o">}</span>
+     <span class="kd">private</span>  <span class="kt">void</span> <span class="nf">treeInOrder</span><span class="o">(</span><span class="nc">TreeNode</span> <span class="n">pRoot</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">pRoot</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">treeInOrder</span><span class="o">(</span><span class="n">pRoot</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+        <span class="n">count</span><span class="o">++;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">lastNode</span> <span class="o">=</span> <span class="n">pRoot</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">treeInOrder</span><span class="o">(</span><span class="n">pRoot</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

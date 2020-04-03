@@ -1,0 +1,38 @@
+I"4
+<p><strong>题目：</strong> 操作给定的二叉树，将其变换为源二叉树的镜像。</p>
+
+<p><strong>输入描述：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>二叉树的镜像定义：源二叉树 
+    	    8
+    	   /  \
+    	  6   10
+    	 / \  / \
+    	5  7 9 11
+    	镜像二叉树
+    	    8
+    	   /  \
+    	  10   6
+    	 / \  / \
+    	11 9 7  5
+</code></pre></div></div>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">Mirror</span><span class="o">(</span><span class="nc">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">TreeNode</span> <span class="n">temp</span><span class="o">=</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span><span class="c1">//借助中间节点交换树的左右子树</span>
+        <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">=</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">=</span><span class="n">temp</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="nc">Mirror</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="nc">Mirror</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

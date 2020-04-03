@@ -1,0 +1,80 @@
+I""&<p><strong>题目一：</strong> 和为 S 的两个数字。输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 数组是递增的序列，可以使用双指针指向首和尾，
+     * 当首尾之和小于sum时，将头指针后移，小于sum
+     * 时将尾指针前移，由于和相等的数字对，差越小
+     * 乘积越大，所以第一次等于sum时，即为乘积最小
+     * @param array
+     * @param sum
+     * @return
+     */</span>
+	<span class="kd">public</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">findNumbersWithSum</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">array</span><span class="o">,</span> <span class="kt">int</span> <span class="n">sum</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">=</span><span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">len</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span><span class="n">end</span><span class="o">=</span><span class="n">len</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">start</span><span class="o">&lt;</span><span class="n">end</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">]+</span><span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]&gt;</span><span class="n">sum</span><span class="o">){</span>
+                <span class="n">end</span><span class="o">--;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">]+</span><span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]&lt;</span><span class="n">sum</span><span class="o">){</span>
+                <span class="n">start</span><span class="o">++;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">]);</span>
+                <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]);</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>题目二：</strong> 和为 S 的连续正数序列。输入一个正数s，打印出所有和为s的连续正数序列(至少含有两个数)。例如，输入15，由于1+2+3+4+5=4+5+6=7+8=15，所以打印出3个连续序列1~5、4~6和7~8。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 	<span class="cm">/**
+     * 使用双指针，初始化start指向开头，end指向第二个，
+     * 若区间[start,end]的和小于sum则，end向后移动一位，
+     * 若大于sum则start向后移动一位，舍掉一个数字。
+     * 由于区间至少有两个数则start和end最大就是位于
+     * sum的一半位置，所以start=mid时,循环结束。
+     * @param sum
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">findContinuousSequence</span><span class="o">(</span><span class="kt">int</span> <span class="n">sum</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">res</span><span class="o">=</span><span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">end</span><span class="o">=</span><span class="mi">2</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">mid</span><span class="o">=(</span><span class="n">sum</span><span class="o">+</span><span class="mi">1</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">start</span><span class="o">&lt;</span><span class="n">mid</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">numberSum</span><span class="o">(</span><span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">)</span> <span class="o">&gt;</span><span class="n">sum</span><span class="o">){</span>
+                <span class="n">start</span><span class="o">++;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">numberSum</span><span class="o">(</span><span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">)&lt;</span><span class="n">sum</span><span class="o">){</span>
+                <span class="n">end</span><span class="o">++;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">temp</span><span class="o">=</span><span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span><span class="n">end</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="n">end</span><span class="o">++;</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">temp</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">numberSum</span><span class="o">(</span><span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">res</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">+=</span><span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

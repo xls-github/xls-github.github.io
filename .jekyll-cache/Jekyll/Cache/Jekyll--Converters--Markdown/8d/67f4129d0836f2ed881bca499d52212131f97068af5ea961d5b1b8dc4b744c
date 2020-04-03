@@ -1,0 +1,43 @@
+I"�<p><strong>题目：</strong></p>
+
+<p>将一个字符串转换成一个整数(实现Integer.valueOf(string)的功能，但是string不符合数字要求时返回0)，要求不能使用字符串转换整数的库函数。 数值为0或者字符串不是一个合法的数值则返回0。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>主要是一些转换的细节，比如+,-号只能在第一位，而且只有+,-号的不是数字，含有0-9以及正负号以外的也不能转成整数。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">strToInt</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">char</span><span class="o">[]</span> <span class="n">chars</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">chars</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">res</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">boolean</span> <span class="n">flag</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span><span class="c1">//标识第一位是否是+号或者-号</span>
+        <span class="k">if</span> <span class="o">(</span><span class="sc">'+'</span><span class="o">==</span><span class="n">chars</span><span class="o">[</span><span class="mi">0</span><span class="o">]||</span><span class="sc">'-'</span><span class="o">==</span><span class="n">chars</span><span class="o">[</span><span class="mi">0</span><span class="o">]){</span>
+            <span class="n">flag</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">chars</span><span class="o">[</span><span class="mi">0</span><span class="o">]&gt;=</span><span class="sc">'0'</span><span class="o">&amp;&amp;</span><span class="n">chars</span><span class="o">[</span><span class="mi">0</span><span class="o">]&lt;=</span><span class="sc">'9'</span><span class="o">){</span>
+            <span class="n">res</span><span class="o">=</span><span class="n">chars</span><span class="o">[</span><span class="mi">0</span><span class="o">]-</span><span class="mi">48</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">chars</span><span class="o">[</span><span class="n">i</span><span class="o">]&gt;=</span><span class="sc">'0'</span><span class="o">&amp;&amp;</span><span class="n">chars</span><span class="o">[</span><span class="n">i</span><span class="o">]&lt;=</span><span class="sc">'9'</span><span class="o">){</span>
+                <span class="n">res</span><span class="o">=</span><span class="n">res</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="n">chars</span><span class="o">[</span><span class="n">i</span><span class="o">]-</span><span class="mi">48</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">flag</span><span class="o">&amp;&amp;</span><span class="n">length</span><span class="o">==</span><span class="mi">1</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span><span class="c1">//只有+,-号没有数字转换失败</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">flag</span><span class="o">&amp;&amp;</span><span class="n">chars</span><span class="o">[</span><span class="mi">0</span><span class="o">]==</span><span class="sc">'-'</span><span class="o">){</span><span class="c1">//第一位是-号，返回负数</span>
+           <span class="k">return</span> <span class="o">-</span><span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span> 
+       	<span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,69 @@
+I"�<p><strong>题目一：</strong></p>
+
+<p>在O(1)时间删除链表结点。给定单向链表的头指针和一个结点指针，定义一个函数在O(1)时间删除该结点。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>由于单向链表只有next指针，要删除给定节点必须要知道它的上一个节点，通常会从头遍历复杂度为O(n)，不满足题目，可以将给定节点的下一个节点的值赋值给给定节点，然后删除给定节点的下一个节点，与删除给定节点的效果相同。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">ListNode</span> <span class="nf">deleteNode</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">head</span><span class="o">,</span><span class="nc">ListNode</span> <span class="n">node</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">node</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">ListNode</span> <span class="n">cur</span><span class="o">=</span><span class="n">head</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">next</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="nc">ListNode</span> <span class="n">next</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">=</span><span class="n">next</span><span class="o">.</span><span class="na">val</span><span class="o">;</span>
+            <span class="n">node</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="n">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">head</span><span class="o">==</span><span class="n">node</span><span class="o">){</span>
+            <span class="n">head</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">!=</span><span class="n">node</span><span class="o">){</span>
+                <span class="n">cur</span><span class="o">=</span><span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>题目二：</strong></p>
+
+<p>在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>两个指针指向链表元素，看是否相等，注意边界条件，比如从头结点开始就相等的情况以及中间相等的数字有多个等，都要考虑到。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">ListNode</span> <span class="nf">deleteDuplicationNode</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">pHead</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">pHead</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">//注意备用头结点，头结点可能被删除</span>
+        <span class="nc">ListNode</span> <span class="n">first</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ListNode</span><span class="o">(-</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">first</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">pHead</span><span class="o">;</span>
+        <span class="nc">ListNode</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pHead</span><span class="o">;</span>
+        <span class="c1">//前节点</span>
+        <span class="nc">ListNode</span> <span class="n">preNode</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">p</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">p</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">val</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">val</span><span class="o">){</span> <span class="c1">//两节点相等</span>
+                <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">val</span><span class="o">;</span> <span class="c1">//记录val用于判断后面节点是否重复</span>
+                <span class="k">while</span><span class="o">(</span><span class="n">p</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">p</span><span class="o">.</span><span class="na">val</span> <span class="o">==</span> <span class="n">val</span><span class="o">){</span>   <span class="c1">//这一步用于跳过相等的节点，用于删除</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">preNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span> <span class="c1">//删除操作，前节点的next直接等于现在的节点，把中间的节点直接跨过</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">preNode</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">first</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,108 @@
+I"*)<p><strong>题目一：</strong> 滑动窗口的最大值。给定一个数组和滑动窗口的大小，请找出所有滑动窗口里的最大值。例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}。 数组{2,3,4,2,6,2,5,1}的滑动窗口如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">数组中的滑动窗口</th>
+      <th style="text-align: center">滑动窗口中的最大值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">[2,3,4],2,6,2,5,1</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2,[3,4,2],6,2,5,1</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2,3,[4,2,6],2,5,1</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2,3,4,[2,6,2],5,1</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2,3,4,2,[6,2,5],1</td>
+      <td style="text-align: center">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2,3,4,2,6,[2,5,1]</td>
+      <td style="text-align: center">5</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 利用大小为size的大顶堆，则堆顶即为滑动窗口最大值
+     * @param num
+     * @param size
+     * @return
+     */</span>
+	<span class="kd">public</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">maxInWindows</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">res</span><span class="o">=</span><span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">size</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">||</span><span class="n">size</span><span class="o">&gt;</span><span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">PriorityQueue</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">heap</span><span class="o">=</span><span class="k">new</span> <span class="nc">PriorityQueue</span><span class="o">&lt;&gt;(((</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o2</span><span class="o">-</span><span class="n">o1</span><span class="o">));</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">size</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">heap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+        <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">heap</span><span class="o">.</span><span class="na">peek</span><span class="o">());</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span><span class="n">j</span><span class="o">=</span><span class="n">size</span><span class="o">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">len</span><span class="o">;</span><span class="n">i</span><span class="o">++,</span><span class="n">j</span><span class="o">++){</span>
+            <span class="n">heap</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="n">heap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]);</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">heap</span><span class="o">.</span><span class="na">peek</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>题目二：</strong> 队列的最大值。请定义一个队列并实现函数max得到队列里的最大值，要求函数max、push_back和
+pop_front的时间复杂度都是O(1)。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+<span class="cm">/**
+ * 利用双端队列存储最大值以及可能最大值，当双端队
+ * 列有一个元素进队列，如果该元素大于双端队列队尾，
+ * 则移除队尾，直至该元素小于队尾，然后入队，若小
+ * 于队尾直接入队。queue存储元素，maxVal存储当前
+ * 最大值，以及可能的最大值
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MaxValueInQueue</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">LinkedList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">=</span><span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="nc">ArrayDeque</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">maxVal</span><span class="o">=</span><span class="k">new</span> <span class="nc">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">push_back</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">val</span><span class="o">){</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">maxVal</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()){</span>
+            <span class="n">maxVal</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">val</span><span class="o">&gt;</span><span class="n">maxVal</span><span class="o">.</span><span class="na">peekLast</span><span class="o">()){</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">maxVal</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()&amp;&amp;</span><span class="n">val</span><span class="o">&gt;</span><span class="n">maxVal</span><span class="o">.</span><span class="na">peekLast</span><span class="o">()){</span>
+                <span class="n">maxVal</span><span class="o">.</span><span class="na">pollLast</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="n">maxVal</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="n">maxVal</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">pop_front</span><span class="o">(){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">peek</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">maxVal</span><span class="o">.</span><span class="na">peekFirst</span><span class="o">())){</span>
+            <span class="n">maxVal</span><span class="o">.</span><span class="na">pollFirst</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">max</span><span class="o">(){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">maxVal</span><span class="o">.</span><span class="na">size</span><span class="o">()&gt;</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">maxVal</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+:ET

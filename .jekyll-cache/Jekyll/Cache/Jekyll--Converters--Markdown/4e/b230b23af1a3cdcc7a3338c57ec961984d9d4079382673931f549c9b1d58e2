@@ -1,0 +1,43 @@
+I"9<p><strong>题目：</strong></p>
+
+<p>把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。</p>
+
+<p><strong>思路：</strong></p>
+
+<ul>
+  <li>丑数由另外一个丑数乘以2，3或者5得到,因此我们可以创建一个数组,里面的数字是有序的丑数。</li>
+  <li>下一个丑数的值应该为<code class="highlighter-rouge">min(ugly[pNum2]*2,ugly[pNum3]*3,ugly[pNum5]*5)</code>前面的数中分别乘以2，3或5之后大于当前最大值的最小的数。</li>
+</ul>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">uglyNumber</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">index</span><span class="o">&lt;=</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">ugly</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+        <span class="n">ugly</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">pNum2</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span><span class="n">pNum3</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span><span class="n">pNum5</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">index</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">minVal</span><span class="o">=</span><span class="n">min</span><span class="o">(</span><span class="n">ugly</span><span class="o">[</span><span class="n">pNum2</span><span class="o">]*</span><span class="mi">2</span><span class="o">,</span><span class="n">ugly</span><span class="o">[</span><span class="n">pNum3</span><span class="o">]*</span><span class="mi">3</span><span class="o">,</span><span class="n">ugly</span><span class="o">[</span><span class="n">pNum5</span><span class="o">]*</span><span class="mi">5</span><span class="o">);</span>
+            <span class="n">ugly</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">minVal</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">minVal</span><span class="o">==</span><span class="n">ugly</span><span class="o">[</span><span class="n">pNum2</span><span class="o">]*</span><span class="mi">2</span><span class="o">){</span>
+                <span class="n">pNum2</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">minVal</span><span class="o">==</span><span class="n">ugly</span><span class="o">[</span><span class="n">pNum3</span><span class="o">]*</span><span class="mi">3</span><span class="o">){</span>
+                <span class="n">pNum3</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">minVal</span><span class="o">==</span><span class="n">ugly</span><span class="o">[</span><span class="n">pNum5</span><span class="o">]*</span><span class="mi">5</span><span class="o">){</span>
+                <span class="n">pNum5</span><span class="o">++;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">ugly</span><span class="o">[</span><span class="n">index</span><span class="o">-</span><span class="mi">1</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">min</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="kt">int</span> <span class="n">b</span><span class="o">,</span><span class="kt">int</span> <span class="n">c</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">min</span><span class="o">=</span><span class="nc">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">res</span><span class="o">=</span><span class="nc">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">min</span><span class="o">,</span><span class="n">c</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

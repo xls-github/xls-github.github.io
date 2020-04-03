@@ -18,12 +18,12 @@ social:
     # weibo: 5366874726 
     github: xls-github
     # twitter: 
-    mail: xlszht@foxmail.com
+    mail: xlszht@163.com
 
 # 百度统计 
 # 使用博客模板请去掉或者更换 id 
-# baidu:
-#     id: 8ba1c6be0953b6f9c2ba38e57f615421  
+baidu:
+    id: 8c5414cb1d25a2583512285641b1e001  
 
 # Google Analytics
 # 使用博客模板请去掉或者更换 id

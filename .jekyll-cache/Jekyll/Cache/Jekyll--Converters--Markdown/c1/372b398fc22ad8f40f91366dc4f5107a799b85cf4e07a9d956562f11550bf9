@@ -1,0 +1,97 @@
+I"�$<p><strong>题目一：</strong> 翻转单词顺序。输入一个英文句子，翻转句子中单词的顺序，但单词内字符顺序不变。为简单起见，标点符号和普通字母一样处理。</p>
+
+<p><strong>示例：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">输入字符串:</span>
+<span class="s">"I am a student."</span>
+
+<span class="nl">输出:</span>
+<span class="s">"student. a am I"</span>
+</code></pre></div></div>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 先将整个字符串翻转，然后翻转每个单词
+     * @param str
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">reverseSentence</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">char</span><span class="o">[]</span> <span class="n">chars</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+        <span class="n">reverse</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">length</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">j</span><span class="o">==</span><span class="n">length</span><span class="o">||</span><span class="nc">Character</span><span class="o">.</span><span class="na">isSpaceChar</span><span class="o">(</span><span class="n">chars</span><span class="o">[</span><span class="n">j</span><span class="o">])){</span>
+                <span class="n">reverse</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span><span class="n">i</span><span class="o">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+                <span class="n">i</span><span class="o">=</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
+            <span class="o">}</span>
+                <span class="n">j</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">chars</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="cm">/**
+     * 反转字符串功能函数
+     * @param chars
+     * @param i
+     * @param j
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">reverse</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">chars</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">){</span>
+            <span class="kt">char</span> <span class="n">temp</span><span class="o">=</span><span class="n">chars</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="n">chars</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">chars</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="n">chars</span><span class="o">[</span><span class="n">j</span><span class="o">]=</span><span class="n">temp</span><span class="o">;</span>
+            <span class="n">i</span><span class="o">++;</span>
+            <span class="n">j</span><span class="o">--;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>题目二：</strong> 左旋转字符串。字符串的左旋转操作是把字符串前面若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。</p>
+
+<p><strong>示例：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">输入:</span>
+<span class="n">str</span><span class="o">=</span><span class="s">"abcdefg"</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">2</span>
+<span class="nl">输出:</span>
+<span class="s">"cdefgab"</span>
+</code></pre></div></div>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="cm">/**
+     * 与题目一类似，先翻转0~n-1，再翻转n到length-1，最后翻转整体
+     * @param str
+     * @param n
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">LeftRotateString</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">,</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span><span class="o">&gt;=</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()){</span>
+            <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">char</span><span class="o">[]</span> <span class="n">chars</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+        <span class="n">reverse</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">reverse</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span><span class="n">n</span><span class="o">,</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">reverse</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">chars</span><span class="o">);</span>
+    <span class="o">}</span>
+ 	<span class="cm">/**
+     * 反转字符串功能函数
+     * @param chars
+     * @param i
+     * @param j
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">reverse</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">chars</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="o">){</span>
+            <span class="kt">char</span> <span class="n">temp</span><span class="o">=</span><span class="n">chars</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="n">chars</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">chars</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="n">chars</span><span class="o">[</span><span class="n">j</span><span class="o">]=</span><span class="n">temp</span><span class="o">;</span>
+            <span class="n">i</span><span class="o">++;</span>
+            <span class="n">j</span><span class="o">--;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

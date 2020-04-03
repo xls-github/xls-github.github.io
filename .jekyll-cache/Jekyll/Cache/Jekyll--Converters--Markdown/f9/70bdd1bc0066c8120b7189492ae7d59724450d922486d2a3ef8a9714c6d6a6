@@ -1,0 +1,69 @@
+I"I<p><strong>题目：</strong></p>
+
+<p>请实现函数ComplexListNode Clone(ComplexListNode head)，复制一个复杂链表。在复杂链表中，每个结点除了有一个Next指针指向下一个结点外，还有一个Sibling指向链表中的任意结点或者NULL。</p>
+
+<p><strong>思路：</strong></p>
+
+<ol>
+  <li>在每个节点后插入要复制的节点</li>
+  <li>复制节点间的连接关系</li>
+  <li>拆解成两个链表</li>
+</ol>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">static</span> <span class="kd">class</span> <span class="nc">ListNode</span><span class="o">{</span>
+        <span class="kt">int</span> <span class="n">val</span><span class="o">;</span>
+        <span class="nc">ListNode</span> <span class="n">next</span><span class="o">;</span>
+        <span class="nc">ListNode</span> <span class="n">sibling</span><span class="o">;</span>
+        <span class="nc">ListNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">val</span><span class="o">=</span><span class="n">val</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>	
+	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">ListNode</span> <span class="nf">copyList</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">copy</span><span class="o">(</span><span class="n">a</span><span class="o">);</span><span class="c1">//第一步</span>
+        <span class="n">copySecondLink</span><span class="o">(</span><span class="n">a</span><span class="o">);</span><span class="c1">//第二步</span>
+        <span class="k">return</span> <span class="nf">copySep</span><span class="o">(</span><span class="n">a</span><span class="o">);</span><span class="c1">//第三步</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ListNode</span> <span class="nf">copySep</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ListNode</span> <span class="n">head</span><span class="o">=</span><span class="n">node</span><span class="o">;</span>
+        <span class="nc">ListNode</span> <span class="n">newHead</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+        <span class="nc">ListNode</span> <span class="n">newNode</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="n">newHead</span><span class="o">=</span><span class="n">newNode</span><span class="o">=</span><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="n">newNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">=</span><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">head</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="n">newNode</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">newNode</span><span class="o">=</span><span class="n">newNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="n">newNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">=</span><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">newHead</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copySecondLink</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ListNode</span> <span class="n">a</span><span class="o">=</span><span class="n">node</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">a</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">sibling</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                <span class="n">a</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">sibling</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="na">sibling</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copy</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ListNode</span> <span class="n">a</span><span class="o">=</span><span class="n">node</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">a</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="nc">ListNode</span> <span class="n">tmp</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="nc">ListNode</span> <span class="n">newNode</span><span class="o">=</span><span class="k">new</span> <span class="nc">ListNode</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+            <span class="n">newNode</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="n">tmp</span><span class="o">;</span>
+            <span class="n">a</span><span class="o">.</span><span class="na">next</span><span class="o">=</span><span class="n">newNode</span><span class="o">;</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">tmp</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

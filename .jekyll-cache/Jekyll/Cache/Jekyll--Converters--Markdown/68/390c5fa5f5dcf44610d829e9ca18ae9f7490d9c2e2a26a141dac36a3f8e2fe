@@ -1,0 +1,26 @@
+I"E<p><strong>题目：</strong> 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//由于一个数，小于它的数一定在其左边，大于它的数一定在其下边，从右上角开始查找，就可以根据</span>
+<span class="c1">//target 和当前元素的大小关系来缩小查找区间，</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">SearchNumIn2DArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">array</span><span class="o">,</span><span class="kt">int</span> <span class="n">target</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">rowLen</span><span class="o">=</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">colLen</span><span class="o">=</span><span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">rowLen</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">colLen</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span><span class="mi">0</span> <span class="o">;</span> <span class="n">j</span><span class="o">--)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]&gt;</span><span class="n">target</span><span class="o">){</span>
+                    <span class="k">continue</span><span class="o">;</span>
+                <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]&lt;</span><span class="n">target</span><span class="o">){</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

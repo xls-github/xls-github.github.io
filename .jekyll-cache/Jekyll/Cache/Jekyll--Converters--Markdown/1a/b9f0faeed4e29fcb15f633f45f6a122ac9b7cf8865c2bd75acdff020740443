@@ -1,0 +1,39 @@
+I"�<p><strong>题目：</strong></p>
+
+<p>输入一个链表，输出该链表中倒数第k个结点。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>用两个指针，第一个先走k-1步，然后两个指针同时走，当第一个指针走到尾部时，第二个指针指向的就是第k个节点。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 	<span class="cm">/**
+     * 链表的倒数第K个节点
+     * @param head
+     * @param k
+     * @return
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ListNode</span> <span class="nf">EndKNode</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">head</span><span class="o">,</span><span class="kt">int</span> <span class="n">k</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">k</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">ListNode</span> <span class="n">firstNode</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="nc">ListNode</span> <span class="n">secondNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">k</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">firstNode</span><span class="o">.</span><span class="na">next</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                <span class="n">firstNode</span><span class="o">=</span><span class="n">firstNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">secondNode</span><span class="o">=</span><span class="n">head</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">firstNode</span><span class="o">.</span><span class="na">next</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="n">firstNode</span><span class="o">=</span><span class="n">firstNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">secondNode</span><span class="o">=</span><span class="n">secondNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">secondNode</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

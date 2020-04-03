@@ -1,0 +1,44 @@
+I"/<p><strong>题目：</strong> 用两个队列模拟实现栈的push以及pop操作。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 两个栈实现队列只需要一个用做入栈操作，
+     * 一个用做出栈操作，而两个队列实现栈需
+     * 要两个队列交替使用，当一个队列有元素，
+     * 要出栈就需要出该队列的最后一个元素，所
+     * 以需要先把最后一个元素之外的元素，转到
+     * 另一个队列。
+     */</span>
+    <span class="kd">private</span> <span class="nc">LinkedList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">queue1</span><span class="o">=</span><span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="nc">LinkedList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">queue2</span><span class="o">=</span><span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">pop</span><span class="o">(){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">queue1</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()&amp;&amp;</span><span class="n">queue2</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()){</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">queue1</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()){</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">queue2</span><span class="o">.</span><span class="na">size</span><span class="o">()&gt;</span><span class="mi">1</span><span class="o">){</span>
+                <span class="n">queue1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">queue2</span><span class="o">.</span><span class="na">pollLast</span><span class="o">());</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">queue2</span><span class="o">.</span><span class="na">pollLast</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">queue2</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()){</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">queue1</span><span class="o">.</span><span class="na">size</span><span class="o">()&gt;</span><span class="mi">1</span><span class="o">){</span>
+                <span class="n">queue2</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">queue1</span><span class="o">.</span><span class="na">pollLast</span><span class="o">());</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">queue1</span><span class="o">.</span><span class="na">pollLast</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="cm">/**
+     *队列1不为空，入栈时进队列1，否则进队列2
+     * @param x
+     */</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">queue1</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()){</span>
+            <span class="n">queue1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="n">queue2</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

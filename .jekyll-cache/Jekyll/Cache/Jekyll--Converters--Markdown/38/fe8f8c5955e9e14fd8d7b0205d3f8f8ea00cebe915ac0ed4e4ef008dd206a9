@@ -1,0 +1,88 @@
+I"�
+<p><strong>单件模式定义</strong>
+确保一个类只有一个实例，并提供一个全局访问点。
+<strong>使用场景</strong>
+线程池、缓存、日志对象、全局配置以及打印机、显卡等设备的驱动对象等这类对象只能有一个实例对象，如果有多个实例，就会出现问题。
+<strong>简单实现</strong>
+单线程安全，多线程不安全</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class Singleton {
+
+    private static Singleton uniqueInstance;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Singleton();
+        }
+        return uniqueInstance;
+    }
+}
+</code></pre></div></div>
+<p><strong>同步实现</strong>
+多线程安全，性能损失严重</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class Singleton {
+
+    private static Singleton uniqueInstance;
+
+    private Singleton() {}
+
+    public static synchronized Singleton getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Singleton();
+        }
+        return uniqueInstance;
+    }
+}
+</code></pre></div></div>
+<p><strong>饿汉式</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>应用程序总是需要创建，或者创建和运行负担不重。
+public class Singleton {
+
+    private final static Singleton uniqueInstance = new Singleton();
+
+    private Singleton(){}
+
+    public static Singleton getInstance(){
+        return uniqueInstance;
+    }
+}
+</code></pre></div></div>
+<p><strong>双重检查加锁（推荐用）</strong>
+java5以上版本支持</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class Singleton {
+
+    private static volatile Singleton uniqueInstance;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (uniqueInstance == null) {
+            synchronized (Singleton.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new Singleton();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+}
+</code></pre></div></div>
+<p><strong>线程安全的懒汉式（静态内部类）（推荐用）</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class Singleton {
+
+    private Singleton() {}
+
+    private static class SingletonInstance {
+        private static final Singleton uniqueInstance = new Singleton();
+    }
+
+    public static Singleton getInstance() {
+        return SingletonInstance.uniqueInstance;
+    }
+}
+</code></pre></div></div>
+:ET

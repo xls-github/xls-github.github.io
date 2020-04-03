@@ -1,0 +1,39 @@
+I"R<p><strong>题目：</strong>请从字符串中找出一个最长的不包含重复字符的子字符串，计算该子字符串的长度。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>动态规划：定义f(i)为以第i个字符结尾时不包含重复字符的子字符串的最长长度，只有一个字符时f(0)=1，有两个字符且不相等时f(1)=2,f(n)当第n个字符在前面未出现过则f(n)=f(n-1)+1,当第n个字符在前面出现过时，比较它和上一次出现的距离d与f(n-1)大小，如果d&lt;=f(n-1)说明以前出现的字符在f(n-1)对应的最长子字符串里，则f(n)=d,否则仍然有f(n)=f(n-1)+1。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">method</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">str</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">""</span><span class="o">)){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">char</span><span class="o">[]</span> <span class="n">buf</span><span class="o">=</span><span class="n">str</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">buf</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">dp</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">len</span><span class="o">];</span>
+        <span class="n">dp</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">Character</span><span class="o">,</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">=</span><span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">buf</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span><span class="mi">0</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">max</span><span class="o">=</span><span class="n">dp</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">len</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">buf</span><span class="o">[</span><span class="n">i</span><span class="o">])==</span><span class="kc">null</span><span class="o">){</span>
+                <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">]+</span><span class="mi">1</span><span class="o">;</span>
+                <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">buf</span><span class="o">[</span><span class="n">i</span><span class="o">],</span><span class="n">i</span><span class="o">);</span>
+            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">i</span><span class="o">-</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">buf</span><span class="o">[</span><span class="n">i</span><span class="o">])&lt;=</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">]){</span>
+                <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">i</span><span class="o">-</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">buf</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+                <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">buf</span><span class="o">[</span><span class="n">i</span><span class="o">],</span><span class="n">i</span><span class="o">);</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">]+</span><span class="mi">1</span><span class="o">;</span>
+                <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">buf</span><span class="o">[</span><span class="n">i</span><span class="o">],</span><span class="n">i</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">]&gt;</span><span class="n">max</span><span class="o">){</span>
+                <span class="n">max</span><span class="o">=</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">max</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

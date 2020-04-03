@@ -1,0 +1,44 @@
+I"g<p><strong>题目：</strong> 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">minNumberInRotateArray</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">end</span><span class="o">=</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">mid</span><span class="o">=(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+        <span class="c1">//如果数组元素允许重复，会出现一个特殊的情况：array[start] == array[mid] == array[end]，</span>
+        <span class="c1">//此时无法确定解在哪个区间，需要顺序查找。比如数组数组 {1,1,1,0,1}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]==</span><span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">]&amp;&amp;</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]==</span><span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]){</span>
+            <span class="kt">int</span> <span class="n">min</span><span class="o">=</span><span class="nc">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="nl">x:</span><span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">x</span><span class="o">&lt;</span><span class="n">min</span><span class="o">){</span>
+                    <span class="n">min</span><span class="o">=</span><span class="n">x</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">min</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]&gt;=</span><span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">]&amp;&amp;</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]&lt;=</span><span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]){</span><span class="c1">//未旋转的数组开始即为最小值</span>
+            <span class="k">return</span> <span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">];</span>
+        <span class="o">}</span>
+  		<span class="cm">/**
+         *使用折半查找思想，当 array[mid]&lt;=array[end]时，表示 [mid,end]
+         *区间内的数组是非递减数组，[start, mid] 区间内的数组是旋转数组，此时令 end = mid；
+         *否则 [mid + 1, end] 区间内的数组是旋转数组，令 start = mid + 1。
+         *当end-start=1时，end即为数组中的最小值。
+         * @param array
+         * @return
+         */</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="o">!=</span><span class="mi">1</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]&gt;=</span><span class="n">array</span><span class="o">[</span><span class="n">start</span><span class="o">]){</span>
+                <span class="n">start</span><span class="o">=</span><span class="n">mid</span><span class="o">;</span>
+                <span class="n">mid</span><span class="o">=(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">mid</span><span class="o">]&lt;=</span><span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">]){</span>
+                <span class="n">end</span><span class="o">=</span><span class="n">mid</span><span class="o">;</span>
+                <span class="n">mid</span><span class="o">=(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">array</span><span class="o">[</span><span class="n">end</span><span class="o">];</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

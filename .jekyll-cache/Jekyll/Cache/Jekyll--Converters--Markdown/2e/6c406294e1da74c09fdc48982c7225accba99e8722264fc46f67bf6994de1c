@@ -1,0 +1,101 @@
+I"�,<p><strong>题目一：</strong></p>
+
+<p>从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印 ，<strong>每一层打印一行</strong>。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>使用变量记录第几行有几个节点要打印，toBePrinted记录该行要打印的节点数量，nextLevel统计下一行要打印的节点数。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 分行从上到下打印
+     * @param node
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">Print</span><span class="o">(</span><span class="nc">BinaryTreeNode</span> <span class="n">node</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">LinkedList</span><span class="o">&lt;</span><span class="nc">BinaryTreeNode</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">=</span><span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">nextLevel</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">toBePrinted</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">list</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()){</span>
+            <span class="nc">BinaryTreeNode</span> <span class="n">temp</span><span class="o">=</span><span class="n">list</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="n">print</span><span class="o">(</span><span class="n">temp</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">temp</span><span class="o">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                <span class="n">list</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">temp</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+                <span class="n">nextLevel</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">temp</span><span class="o">.</span><span class="na">right</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                <span class="n">list</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">temp</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+                <span class="n">nextLevel</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="n">toBePrinted</span><span class="o">--;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">toBePrinted</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+                <span class="n">toBePrinted</span><span class="o">=</span><span class="n">nextLevel</span><span class="o">;</span>
+                <span class="n">nextLevel</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="nc">BinaryTreeNode</span> <span class="n">node</span><span class="o">){</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">+</span><span class="s">"\t"</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>题目二：</strong></p>
+
+<p>请实现一个函数按照<strong>之字形顺序打印二叉树</strong>，即第一行按照从左到右的顺序打印，第二层按照从右到左的顺序打印，第三行再按照从左到右的顺序打印，其他以此类推。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>用两个栈实现，一个栈先进左孩子，再进右孩子，另一个栈与之相反，一个栈存储一行的元素。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 之字形打印
+     * @param node
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">PrintCyc</span><span class="o">(</span><span class="nc">BinaryTreeNode</span> <span class="n">node</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">Stack</span><span class="o">&lt;</span><span class="nc">BinaryTreeNode</span><span class="o">&gt;</span> <span class="n">stack1</span><span class="o">=</span><span class="k">new</span> <span class="nc">Stack</span><span class="o">&lt;&gt;();</span>
+        <span class="nc">Stack</span><span class="o">&lt;</span><span class="nc">BinaryTreeNode</span><span class="o">&gt;</span> <span class="n">stack2</span><span class="o">=</span><span class="k">new</span> <span class="nc">Stack</span><span class="o">&lt;&gt;();</span>
+        <span class="n">stack1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">stack1</span><span class="o">.</span><span class="na">empty</span><span class="o">()||!</span><span class="n">stack2</span><span class="o">.</span><span class="na">empty</span><span class="o">()){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">stack2</span><span class="o">.</span><span class="na">empty</span><span class="o">()){</span>
+                <span class="k">while</span> <span class="o">(!</span><span class="n">stack1</span><span class="o">.</span><span class="na">empty</span><span class="o">()){</span>
+                    <span class="nc">BinaryTreeNode</span> <span class="n">tmp</span><span class="o">=</span><span class="n">stack1</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+                    <span class="n">print</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                        <span class="n">stack2</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+                    <span class="o">}</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">right</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                        <span class="n">stack2</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(!</span><span class="n">stack2</span><span class="o">.</span><span class="na">empty</span><span class="o">()){</span>
+                    <span class="nc">BinaryTreeNode</span> <span class="n">tmp</span><span class="o">=</span><span class="n">stack2</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+                    <span class="n">print</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">right</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                        <span class="n">stack1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+                    <span class="o">}</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                        <span class="n">stack1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">tmp</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="nc">BinaryTreeNode</span> <span class="n">node</span><span class="o">){</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">+</span><span class="s">"\t"</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

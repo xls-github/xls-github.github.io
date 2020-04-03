@@ -1,0 +1,31 @@
+I"<p><code class="highlighter-rouge">题目：</code> 在一个 m*n 的棋盘中的每一个格都放一个礼物，每个礼物都有一定的价值（价值大于0）.你可以从棋盘的左上角开始拿各种里的礼物，并每次向右或者向下移动一格，直到到达棋盘的右下角。给定一个棋盘及上面个的礼物，请计算你最多能拿走多少价值的礼物？</p>
+
+<p><code class="highlighter-rouge">思路：</code></p>
+
+<p>动态规划，<code class="highlighter-rouge">dp[i][j]</code>表示从左上角移动到(i,j)时，最大礼物价值。由于只能向右或者向下，则<code class="highlighter-rouge">dp[i][j]</code>的值就是左边一个和上边一个中的最大值，再加上当前<code class="highlighter-rouge">values[i][j]</code>的值,即<code class="highlighter-rouge">dp[i][j] = Math.max(left, up) + values[i][j]</code>。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">getMaxVal</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">values</span><span class="o">,</span> <span class="kt">int</span> <span class="n">rows</span><span class="o">,</span> <span class="kt">int</span> <span class="n">cols</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">values</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">rows</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">cols</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[][]</span> <span class="n">dp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">rows</span><span class="o">][</span><span class="n">cols</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">rows</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">cols</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="kt">int</span> <span class="n">up</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">left</span> <span class="o">=</span> <span class="n">dp</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">up</span> <span class="o">=</span> <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="o">];</span>
+                <span class="o">}</span>
+                <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">up</span><span class="o">)</span> <span class="o">+</span> <span class="n">values</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="o">[</span><span class="n">rows</span> <span class="o">-</span> <span class="mi">1</span><span class="o">][</span><span class="n">cols</span> <span class="o">-</span> <span class="mi">1</span><span class="o">];</span><span class="c1">//返回礼物最大值</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

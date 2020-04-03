@@ -1,0 +1,37 @@
+I"`<p><strong>题目：</strong></p>
+
+<p>给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
+
+<p><strong>思路：</strong></p>
+
+<ol>
+  <li>如果当前节点有右孩子节点，如果其右孩子有左孩子节点，则其右孩子的最左孩子节点就是当前节点的下一个节点，如果其右孩子节点没有左孩子节点，则右孩子节点就是当前节点的下一个节点。</li>
+  <li>如果当前节点没有右孩子，但有父节点，如果当前节点是其父节点的右孩子，则<code class="highlighter-rouge">pNode=pNode.next</code>(next就是父指针)，直到是左孩子或者next为空，如果是左孩子，它的下一个节点就是他的父节点，如果next为空，则其下一个节点为空。</li>
+</ol>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">TreeLinkNode</span> <span class="nf">nextNode</span><span class="o">(</span><span class="nc">TreeLinkNode</span> <span class="n">pNode</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">pNode</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">pNode</span><span class="o">.</span><span class="na">right</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="nc">TreeLinkNode</span> <span class="n">rightChild</span><span class="o">=</span><span class="n">pNode</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">rightChild</span><span class="o">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                <span class="n">rightChild</span><span class="o">=</span><span class="n">rightChild</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">rightChild</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">pNode</span><span class="o">.</span><span class="na">next</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">pNode</span><span class="o">.</span><span class="na">next</span><span class="o">!=</span><span class="kc">null</span><span class="o">&amp;&amp;</span><span class="n">pNode</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">right</span><span class="o">==</span><span class="n">pNode</span><span class="o">){</span>
+                <span class="n">pNode</span><span class="o">=</span><span class="n">pNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">pNode</span><span class="o">.</span><span class="na">next</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">pNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,50 @@
+I"<p><strong>题目：</strong></p>
+
+<p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。</p>
+
+<p><strong>思路：</strong></p>
+
+<ul>
+  <li>有一个数字超过数组的一半，就是说有一个数字出现的次数比其他数字次数的和还要大，可以考虑遍历数组保存两个值数字以及其出现的次数，如果下一个数字和前一个数字不同且前一个数字不为零，则次数减一，如果次数为0则保存下一个数字，并及次数为1。</li>
+  <li>由于可能会出现没有数字超过数组的一半，所以加入checkValid函数用来检验。</li>
+</ul>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">numOfDigital</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">temp</span><span class="o">=</span><span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">len</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]==</span><span class="n">temp</span><span class="o">){</span><span class="c1">//下一个和上一个相同则次数加1</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">count</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span><span class="c1">//次数为0时，设置新的数字并置次数为1</span>
+                <span class="n">temp</span><span class="o">=</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">--;</span><span class="c1">//次数不为0且与前一个不相同，则次数减1</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">checkValid</span><span class="o">(</span><span class="n">array</span><span class="o">,</span><span class="n">temp</span><span class="o">)){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">checkValid</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">,</span> <span class="kt">int</span> <span class="n">temp</span><span class="o">)</span> <span class="o">{</span><span class="c1">//检查是不是没有数字超过数组的一半</span>
+        <span class="kt">int</span> <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span><span class="o">==</span><span class="n">temp</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">count</span><span class="o">&gt;</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">/</span><span class="mi">2</span><span class="o">){</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

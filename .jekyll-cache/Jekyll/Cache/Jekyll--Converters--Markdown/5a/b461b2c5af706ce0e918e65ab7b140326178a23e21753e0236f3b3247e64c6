@@ -1,0 +1,40 @@
+I"p<p><strong>题目：</strong></p>
+
+<p>假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可获得的最大利润是多少？</p>
+
+<p><strong>示例：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">一只股票在某些时间节点的价格为</span><span class="o">{</span><span class="mi">9</span><span class="o">,</span><span class="mi">11</span><span class="o">,</span><span class="mi">8</span><span class="o">,</span><span class="mi">5</span><span class="o">,</span><span class="mi">7</span><span class="o">,</span><span class="mi">12</span><span class="o">,</span><span class="mi">16</span><span class="o">,</span><span class="mi">14</span><span class="o">}</span><span class="err">。</span><span class="n">如果我们能在价格为5的时候买入并在价格为16时卖出</span><span class="err">，</span><span class="n">则能获得最大的利润为11</span><span class="o">.</span>
+</code></pre></div></div>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 某天能获得最大利润取当天价格减去以前最小价格的值和
+     * 当天之前能获得的最大利润两者中的最大值。
+     * 比如{7,1,5,3,6,8}，dp[5]=Max(8-1,6)=7
+     * @param prices
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maxProfit</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">prices</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">prices</span> <span class="o">==</span> <span class="kc">null</span><span class="o">||</span><span class="n">prices</span><span class="o">.</span><span class="na">length</span><span class="o">==</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">length</span><span class="o">==</span><span class="mi">1</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">dp</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">length</span><span class="o">];</span><span class="c1">//dp[i]表示到第i天的最大利润</span>
+        <span class="kt">int</span> <span class="n">min</span><span class="o">=</span><span class="n">prices</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span><span class="c1">//记录当天之前的最小值</span>
+        <span class="n">dp</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">length</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="nc">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">],</span><span class="n">prices</span><span class="o">[</span><span class="n">i</span><span class="o">]-</span><span class="n">min</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">prices</span><span class="o">[</span><span class="n">i</span><span class="o">]&lt;</span><span class="n">min</span><span class="o">){</span>
+                <span class="n">min</span><span class="o">=</span><span class="n">prices</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="o">];</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

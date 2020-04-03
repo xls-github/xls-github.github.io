@@ -1,0 +1,32 @@
+I"�
+<p><strong>题目：</strong> 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="nc">Stack</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">stack1</span><span class="o">=</span><span class="k">new</span> <span class="nc">Stack</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="nc">Stack</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">stack2</span><span class="o">=</span><span class="k">new</span> <span class="nc">Stack</span><span class="o">&lt;&gt;();</span>
+    <span class="cm">/**
+     * 出队列从栈2出，栈2为空，先将栈1的元素入栈2，再从栈2出
+     * @return
+     */</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">pop</span><span class="o">(){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">stack2</span><span class="o">.</span><span class="na">empty</span><span class="o">()){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">stack1</span><span class="o">.</span><span class="na">empty</span><span class="o">()){</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">stack1</span><span class="o">.</span><span class="na">empty</span><span class="o">()){</span>
+                <span class="n">stack2</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">stack1</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">stack2</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="cm">/**
+     * 入队列进栈1
+     * @param x
+     */</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">){</span>
+        <span class="n">stack1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

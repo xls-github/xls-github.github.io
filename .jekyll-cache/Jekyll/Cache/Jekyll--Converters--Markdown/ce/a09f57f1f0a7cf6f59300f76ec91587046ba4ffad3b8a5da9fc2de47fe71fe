@@ -1,0 +1,6 @@
+I"<p>首先，从我的github个人博客项目仓库克隆出该工程到本地。 
+xls-github.github.io文件夹是从github clone来的整个工程。其下的_posts文件是所有的博客文件，博客采用markdown格式，文件名必须是时间+标题形式。 
+如下图所示：
+<img src="https://img-blog.csdn.net/20180414145043620?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI3OTI4NTg1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述" />
+然后就可以在本地编辑博客了：</p>
+:ET

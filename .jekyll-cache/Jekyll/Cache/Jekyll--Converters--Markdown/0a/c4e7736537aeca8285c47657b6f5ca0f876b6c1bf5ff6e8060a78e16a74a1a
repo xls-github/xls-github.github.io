@@ -1,0 +1,31 @@
+I"�<p><strong>题目：</strong></p>
+
+<p>给定一个数组A[0,1,…,n-1],请构建一个数组B[0,1,…,n-1],其中B中的元素B[i]=A[0]<em>A[1]</em>…<em>A[i-1]</em>A[i+1]<em>…</em>A[n-1]。不能使用除法。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>B[i]=A[0]<em>A[1]</em>…<em>A[i-1]</em>A[i+1]<em>…</em>A[n-1]可以看做A[0]<em>A[1]</em>…A[i-1]的结果与A[i+1]<em>…</em>A[n-1]结果的乘积，可以分成两次遍历：第一次从0到i-1，第二次从i+1到n-1。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">multiply</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="no">A</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="no">A</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="no">B</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">length</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span><span class="c1">//初始化数组中元素的值为1</span>
+            <span class="no">B</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span><span class="c1">//第一次遍历</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span><span class="n">i</span> <span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="no">B</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="no">B</span><span class="o">[</span><span class="n">i</span><span class="o">]*</span><span class="no">A</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span><span class="c1">//第二次遍历</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span><span class="n">length</span> <span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="no">B</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="no">B</span><span class="o">[</span><span class="n">i</span><span class="o">]*</span><span class="no">A</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="no">B</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

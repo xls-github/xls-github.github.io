@@ -1,0 +1,37 @@
+I"�<p><strong>题目:</strong> 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&lt;=39</p>
+
+<p><strong>解法一(递归)：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">private</span> <span class="kt">int</span> <span class="nf">fibonacci</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span><span class="c1">//</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="nf">fibonacci</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)+</span><span class="n">fibonacci</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>解法二(动态规划)：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">int</span> <span class="nf">fibocciCycle</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">two</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">res</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">=</span><span class="n">one</span><span class="o">+</span><span class="n">two</span><span class="o">;</span>
+            <span class="n">two</span><span class="o">=</span><span class="n">one</span><span class="o">;</span>
+            <span class="n">one</span><span class="o">=</span><span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,37 @@
+I"�<p><strong>题目：</strong></p>
+
+<p>给定一个数字，按照如下规则翻译成字符串：0翻译成“a”，1翻译成“b”…25翻译成“z”。一个数字有多种翻译可能，例如12258一共有5种，分别是bccfi，bwfi，bczi，mcfi，mzi。实现一个函数，用来计算一个数字有多少种不同的翻译方法。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>动态规划，dp[i]表示从个位到第i位，一共有多少种表达方式，以12345为例，当第i位和i+1位的值大于25时，比如34，因为3和4不能用一个字母表示所以345表示方式数与45的表示数一样；如果小于25，则<code class="highlighter-rouge">dp[i]=dp[i+1]+dp[i+2]</code>，也与i+2位有关，比如1这一位，可以有1+2345的表示数和12+345的表示数的和。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">num</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">){</span>
+        <span class="nc">String</span> <span class="n">num</span><span class="o">=</span><span class="n">number</span><span class="o">+</span><span class="s">""</span><span class="o">;</span>
+        <span class="kt">char</span><span class="o">[]</span> <span class="n">arr</span><span class="o">=</span><span class="n">num</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">len</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">){</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">dp</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">len</span><span class="o">];</span>
+        <span class="n">dp</span><span class="o">[</span><span class="n">len</span><span class="o">-</span><span class="mi">1</span><span class="o">]=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">((</span><span class="kt">int</span><span class="o">)</span><span class="n">arr</span><span class="o">[</span><span class="n">len</span><span class="o">-</span><span class="mi">2</span><span class="o">]-</span><span class="mi">48</span><span class="o">+(</span><span class="kt">int</span><span class="o">)</span><span class="n">arr</span><span class="o">[</span><span class="n">len</span><span class="o">-</span><span class="mi">1</span><span class="o">]-</span><span class="mi">48</span><span class="o">&lt;=</span><span class="mi">25</span><span class="o">){</span>
+            <span class="n">dp</span><span class="o">[</span><span class="n">len</span><span class="o">-</span><span class="mi">2</span><span class="o">]=</span><span class="mi">2</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="n">dp</span><span class="o">[</span><span class="n">len</span><span class="o">-</span><span class="mi">2</span><span class="o">]=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">len</span><span class="o">-</span><span class="mi">3</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span><span class="mi">0</span> <span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">temp</span><span class="o">=(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]-</span><span class="mi">48</span><span class="o">)*</span><span class="mi">10</span><span class="o">+(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]-</span><span class="mi">48</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">temp</span><span class="o">&lt;=</span><span class="mi">25</span><span class="o">){</span>
+                <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]+</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="o">];</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

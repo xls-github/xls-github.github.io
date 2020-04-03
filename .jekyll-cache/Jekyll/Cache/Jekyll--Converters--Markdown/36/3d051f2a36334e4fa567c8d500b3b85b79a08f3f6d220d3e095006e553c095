@@ -1,0 +1,25 @@
+I"�<p><strong>题目：</strong> 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">TreeNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span><span class="c1">//记录最后一个尾节点</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">TreeNode</span> <span class="n">head</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span><span class="c1">//记录双向链表头结点</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">TreeNode</span> <span class="nf">Convert</span><span class="o">(</span><span class="nc">TreeNode</span> <span class="n">pRootOfTree</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ConvertCore</span><span class="o">(</span><span class="n">pRootOfTree</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">ConvertCore</span><span class="o">(</span><span class="nc">TreeNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span><span class="c1">//中序遍历二叉搜索树即为有序</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="nc">ConvertCore</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="n">node</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">pre</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">pre</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">pre</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">head</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+        <span class="nc">ConvertCore</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,41 @@
+I"�<p><strong>题目：</strong></p>
+
+<p>给你一根长度为n的绳子，请把绳子剪成m段 (m和n都是整数，n&gt;1并且m&gt;1)每段绳子的长度记为k[0],k[1],…,k[m].请问k[0]<em>k[1]</em>…*k[m]可能的最大乘积是多少？例如，当绳子的长度为8时，我们把它剪成长度分别为2,3,3的三段，此时得到的最大乘积是18.
+<strong>思路：</strong></p>
+
+<p>利用动态规划法，f(n)表示长度为n的绳子能够得到的最大乘积，f(n)=max(f(i)*f(n-i))，其中0&lt;i&lt;n</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">cutString</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">pos</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">max</span><span class="o">;</span>
+        <span class="n">pos</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="n">pos</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="n">pos</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">max</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">pos</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">*</span> <span class="n">pos</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="o">];</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">max</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">max</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+                <span class="o">}</span>
+
+            <span class="o">}</span>
+            <span class="n">pos</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">max</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">max</span> <span class="o">=</span> <span class="n">pos</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+        <span class="k">return</span> <span class="n">max</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,52 @@
+I"@<p><strong>题目：</strong></p>
+
+<p>输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>用快排的思想，<code class="highlighter-rouge">partation</code>函数返回值大于其左边的值，小于其右边的值。如果返回的index正好为k-1则，其前面的值就是最小的k个数，如果index小于k-1说明index后面的值也在最小的k个数里，继续在后面查找，index大于k-1时，相反。</p>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">minNumK</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">input</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">){</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">resList</span><span class="o">=</span><span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">input</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">&lt;=</span><span class="mi">0</span><span class="o">||</span><span class="n">k</span><span class="o">&lt;=</span><span class="mi">0</span><span class="o">||</span><span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">&lt;</span><span class="n">k</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">resList</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">end</span><span class="o">=</span><span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">index</span><span class="o">=</span><span class="n">partation</span><span class="o">(</span><span class="n">input</span><span class="o">,</span><span class="n">start</span><span class="o">,</span><span class="n">end</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">index</span><span class="o">!=</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">index</span><span class="o">&gt;</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="o">){</span>
+                <span class="n">end</span><span class="o">=</span><span class="n">index</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+                <span class="n">index</span><span class="o">=</span><span class="n">partation</span><span class="o">(</span><span class="n">input</span><span class="o">,</span><span class="n">start</span><span class="o">,</span><span class="n">end</span><span class="o">);</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">start</span><span class="o">=</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="o">;</span>
+                <span class="n">index</span><span class="o">=</span><span class="n">partation</span><span class="o">(</span><span class="n">input</span><span class="o">,</span><span class="n">start</span><span class="o">,</span><span class="n">end</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">resList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">input</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">resList</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">partation</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">low</span><span class="o">=</span><span class="n">start</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">high</span><span class="o">=</span><span class="n">end</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">base</span><span class="o">=</span><span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">];</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">low</span><span class="o">&lt;</span><span class="n">high</span><span class="o">){</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">low</span><span class="o">]&lt;</span><span class="n">base</span><span class="o">){</span>
+                <span class="n">low</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">high</span><span class="o">]&gt;</span><span class="n">base</span><span class="o">){</span>
+                <span class="n">high</span><span class="o">--;</span>
+            <span class="o">}</span>
+            <span class="kt">int</span> <span class="n">tmp</span><span class="o">=</span><span class="n">arr</span><span class="o">[</span><span class="n">low</span><span class="o">];</span>
+            <span class="n">arr</span><span class="o">[</span><span class="n">low</span><span class="o">]=</span><span class="n">arr</span><span class="o">[</span><span class="n">high</span><span class="o">];</span>
+            <span class="n">arr</span><span class="o">[</span><span class="n">high</span><span class="o">]=</span><span class="n">tmp</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">low</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

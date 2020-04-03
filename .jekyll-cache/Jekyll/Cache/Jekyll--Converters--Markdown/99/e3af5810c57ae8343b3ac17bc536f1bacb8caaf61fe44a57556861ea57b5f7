@@ -1,0 +1,49 @@
+I"<p><strong>题目：</strong></p>
+
+<p>如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。</p>
+
+<p><strong>思路：</strong></p>
+
+<p>建立两个堆，一个最小堆一个最大堆，要达到当元素数量是偶数时，中位数就是两个堆顶的平均值，如果为奇数，就是两个堆中多的那的堆的堆顶元素这样的效果。就需要在入堆时，</p>
+
+<ul>
+  <li><code class="highlighter-rouge">count</code>为偶数时，如果插入的数字小于大顶堆的堆顶，则该元素先入大顶堆，然后把大顶堆的堆顶放入小顶堆;否则，直接进入小顶堆。</li>
+  <li><code class="highlighter-rouge">count</code>为奇数时，如果插入的数字大于小顶堆的堆顶，则该元素先入小顶堆，然后把小顶堆的堆顶放入大顶堆;否则，直接进入大顶堆。</li>
+</ul>
+
+<p><strong>代码：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">PriorityQueue</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">min</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PriorityQueue</span><span class="o">&lt;&gt;();</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="nc">PriorityQueue</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">max</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PriorityQueue</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">o1</span><span class="o">,</span> <span class="nc">Integer</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">o2</span> <span class="o">-</span> <span class="n">o1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">insert</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">((</span><span class="n">count</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">max</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="n">max</span><span class="o">.</span><span class="na">peek</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">max</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+                <span class="n">num</span> <span class="o">=</span> <span class="n">max</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="n">min</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">min</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="n">min</span><span class="o">.</span><span class="na">peek</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">min</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+                <span class="n">num</span> <span class="o">=</span> <span class="n">min</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="n">max</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">count</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Double</span> <span class="nf">middleNum</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">((</span><span class="n">count</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="kt">double</span><span class="o">)(</span><span class="n">min</span><span class="o">.</span><span class="na">peek</span><span class="o">()</span> <span class="o">+</span> <span class="n">max</span><span class="o">.</span><span class="na">peek</span><span class="o">())</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">min</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET

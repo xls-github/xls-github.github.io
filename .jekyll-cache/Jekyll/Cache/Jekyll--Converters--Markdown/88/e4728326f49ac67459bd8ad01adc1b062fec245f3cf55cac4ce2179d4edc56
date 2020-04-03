@@ -1,0 +1,104 @@
+I"<p><strong>题目：</strong></p>
+
+<p>0，1，…，n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字。求出这个圆圈里剩下的最后一个数字。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 约瑟夫环问题：
+     * 长度为n的解可以看作长度为n-1的解加上m之后对n取余
+     * 即f(n,m)=(f(n-1,m)+m)%n,
+     * f(n-1,m)=(f(n-2,m)+m)%(n-1)
+     * @param n
+     * @param m
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">lastRemaining_Solution</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">n</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">||</span><span class="n">m</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">){</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">temp</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span><span class="n">n</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">temp</span><span class="o">=(</span><span class="n">temp</span><span class="o">+</span><span class="n">m</span><span class="o">)%</span><span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>解释：</strong></p>
+
+<ul>
+  <li>
+    <p>f(n,m)表示在n个数字中删除第m个数字后留下的数字。</p>
+  </li>
+  <li>
+    <p>在n个数字中，第一个被删除的数字为(m-1)%n，记为k，剩余n-1个数字为0,1,2,…<strong>k-1,k+1</strong>,…n-1。</p>
+  </li>
+  <li>
+    <p>由于下一次删除时从k+1开始，与0~n-1连续序列不同，则记为p((n-1),m),那么必有f(n,m)=p((n-1),m)。</p>
+  </li>
+  <li>
+    <p>由于第二次删除从k+1开始，k+1相当于第一次数字时的0，则存在下列映射：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: center">映射前</th>
+          <th style="text-align: center">映射后</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center">k+1</td>
+          <td style="text-align: center">0</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">…</td>
+          <td style="text-align: center">…</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">0</td>
+          <td style="text-align: center">n-k-1</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">…</td>
+          <td style="text-align: center">…</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">k-1</td>
+          <td style="text-align: center">n-2</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<p>则映射函数为g(x)=(x-k-1)%n,其逆映射为g`(x)=(x+k+1)%n。</p>
+
+<ul>
+  <li>映射后序列也为0~n-2，可以用f((n-1),m)表示。</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">映射前</th>
+      <th style="text-align: center">映射后</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">p((n-1),m)</td>
+      <td style="text-align: center">f((n-1),m)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">x</td>
+      <td style="text-align: center">g(x)=(x+k+1)%n</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>则p((n-1),m)=(f((n-1),m)+k+1)%n,由于k=(m-1)%n,代入公式可得f(n,m)=(f(n-1,m)+m)%n。</li>
+</ul>
+:ET

@@ -1,0 +1,136 @@
+I"�<hr />
+<p>节点的定义：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class BinaryTreeNode{ 
+    BinaryTreeNode leftchild; 
+    BinaryTreeNode rightchild; 
+    int val; 
+    BinaryTreeNode(int newval){ 
+		leftchild=null; 
+		rightchild=null; 
+		val=newval; 
+}
+</code></pre></div></div>
+<p>##层次遍历
+按层对树进行遍历</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public void BinaryTreeLevelOrder(BinaryTreeNode node){
+		if(node==null){
+			return;
+		}
+		LinkedList&lt;BinaryTreeNode&gt; queue=new LinkedList&lt;BinaryTreeNode&gt;();
+		queue.add(node);
+		while(!queue.isEmpty()){
+			node = queue.poll();
+			System.out.println(node.val);
+			if(node.leftChild!=null){
+				queue.add(node.leftChild);
+			}
+			if(node.rightChild!=null){
+				queue.add(node.rightChild);
+			}
+		}
+		 
+	}
+</code></pre></div></div>
+<p>##先序遍历
+首先访问根结点然后遍历左子树，最后遍历右子树。在遍历左、右子树时，
+仍然先访问根结点，然后遍历左子树，最后遍历右子树，如果二叉树为空则返回。</p>
+<ol>
+  <li>递归
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public void BinaryTreePreOrder(BinaryTreeNode node){
+ 	if(node==null){
+         return;
+     }
+     System.out.println(node.val);
+     BinaryTreePreOrder(node.leftChild);
+     BinaryTreePreOrder(node.rightChild);
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>非递归
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> public void BinaryTreeNonCyclePreOrder(BinaryTreeNode node){
+     Stack&lt;BinaryTreeNode&gt; stack = new Stack&lt;BinaryTreeNode&gt;();
+     while(node!=null||!stack.empty()){
+         while(node!=null){
+             System.out.println(node.val);
+             stack.push(node);
+             node = node.leftChild;
+         }
+         if(!stack.empty()){
+             node = stack.pop();
+             node = node.rightChild;
+         }
+     }
+ }
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr />
+<p>##中序遍历
+首先遍历左子树，然后访问根结点，最后遍历右子树。如果二叉树为空则返回。</p>
+<ol>
+  <li>递归
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public void BinaryTreeInOrder(BinaryTreeNode node){
+ 	if(node==null){
+         return;
+     }		
+     BinaryTreePreOrder(node.leftChild);
+     System.out.println(node.val);
+     BinaryTreePreOrder(node.rightChild);
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>非递归
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public void BinaryTreeNonCycleInOrder(BinaryTreeNode node){
+     Stack&lt;BinaryTreeNode&gt; stack = new Stack&lt;BinaryTreeNode&gt;();
+     while(node!=null || !stack.empty()){
+         while(node!=null){
+             stack.push(node);
+             node = node.leftChild;
+         }
+         if(!stack.empty()){
+             node = stack.pop();
+             System.out.println(node.val);
+             node = node.rightChild;
+         }
+     }
+ }
+</code></pre></div>    </div>
+    <hr />
+    <p>##后序遍历
+首先遍历左子树，然后遍历右子，最后树访问根结点。如果二叉树为空则返回。</p>
+  </li>
+  <li>递归
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public void BinaryTreePostOrder(BinaryTreeNode node){
+ 	if(node==null){
+         return;
+     }		
+     BinaryTreePreOrder(node.leftChild);		
+     BinaryTreePreOrder(node.rightChild);
+     System.out.println(node.val);
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>非递归
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> public void BinaryTreeNonCyclePostOrder(BinaryTreeNode node){
+     Stack&lt;BinaryTreeNode&gt; stack = new Stack&lt;BinaryTreeNode&gt;(); 
+     TreeNode newNode =node;  
+     while(node!=null){              
+         while(node.leftChild!=null){  
+             stack.push(node);  
+         }              
+         while(node!=null&amp;&amp;(node.rightChild==null||node.rightChild==newNode)){  
+             System.out.println(node.val);                  
+             newNode =node;  
+             if(stack.empty())  
+                 return;  
+             node=stack.pop();  
+         }             
+         stack.push(node);  
+         node=node.rightChild;  
+     }  
+ }
+</code></pre></div>    </div>
+  </li>
+</ol>
+:ET

@@ -1,0 +1,45 @@
+I"$<p><strong>题目：</strong></p>
+
+<p>从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。其中2~10为数字本身，A为1，J为11，Q为12，K为13，而大小王可以看成任意数字。</p>
+
+<p><strong>解法：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="cm">/**
+     * 将大小王用0表示，与其他牌区分开
+     * 1.先对数组排序
+     * 2.统计0的个数
+     * 3.比较数组要组成顺子的差与0个数
+     * @param numbers
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isContinuous</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span> <span class="n">length</span> <span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">numbers</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">zeroNum</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]!=</span><span class="mi">0</span><span class="o">){</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">zeroNum</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">diff</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]==</span><span class="mi">0</span><span class="o">){</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]==</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]){</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">diff</span><span class="o">=</span><span class="n">diff</span><span class="o">+</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]-</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">zeroNum</span><span class="o">&gt;=</span><span class="n">diff</span><span class="o">+</span><span class="n">zeroNum</span><span class="o">-</span><span class="mi">4</span><span class="o">){</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+:ET
